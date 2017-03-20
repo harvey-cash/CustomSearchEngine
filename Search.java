@@ -122,11 +122,95 @@ public abstract class Search {
     }
 
 
-    /* ~~~~~~~~~~~~~ SEARCH STRATEGY AND WORKINGS ~~~~~~~~~~~~~ */
+    /* ~~~~~~~~~~~~~ SEARCH INNER WORKINGS ~~~~~~~~~~~~~ */
 
     private void expand() {
+        successorNodes = currentNode.getSuccessors(this);
 
+        for (SearchNode node : successorNodes) {
+            node.setGlobalCost(currentNode.getGlobalCost() + node.getLocalCost());
+            node.setParent(currentNode);
+            node.setEstTotalCost(node.getGlobalCost() + node.getEstRemainingCost());
+        }
+
+        successorNodes = vetSuccessors(successorNodes);
+
+        for (SearchNode node : successorNodes) {
+            openNodes.add(node);
+        }
     }
+
+    // modify things when a better route that has already lead to
+    // this node is discovered..?
+    private ArrayList<SearchNode> vetSuccessors(ArrayList<SearchNode> successors) {
+        ArrayList<SearchNode> vettedList = new ArrayList<SearchNode>();
+
+        for (SearchNode node : successorNodes) {
+            if(onOpenList(node)) {
+                if (node.getGlobalCost() <= previousNode.getGlobalCost()) {
+                    previousNode.setParent(node.getParent());
+                    previousNode.setGlobalCost(node.getGlobalCost());
+                    previousNode.setLocalCost(node.getLocalCost());
+                    previousNode.setEstTotalCost(node.getEstTotalCost());
+                }
+            }
+            else {
+                if(onClosedList(node)) {
+                    if (node.getGlobalCost() <= previousNode.getGlobalCost()) {
+                        previousNode.setParent(node.getParent());
+                        previousNode.setGlobalCost(node.getGlobalCost());
+                        previousNode.setLocalCost(node.getLocalCost());
+                        previousNode.setEstTotalCost(node.getEstTotalCost());
+
+                        openNodes.add(previousNode);
+                        closedNodes.remove(previousNode);
+                    }
+                }
+                else {
+                    vettedList.add(node);
+                }
+            }
+        }
+
+        return vettedList;
+    }
+
+    //Given Node is present on the open list already
+    private boolean onOpenList(SearchNode node) {
+        boolean result = false;
+
+        Iterator iterate = openNodes.iterator();
+        while(iterate.hasNext() && !result) {
+            SearchNode openNode = (SearchNode)iterate.next();
+
+            if(node.sameState(openNode)) {
+                result = true;
+                previousNode = openNode;
+            }
+        }
+
+        return result;
+    }
+
+    //Given Node is present on the closed list already
+    private boolean onClosedList(SearchNode node) {
+        boolean result = false;
+
+        Iterator iterate = closedNodes.iterator();
+        while(iterate.hasNext() && !result) {
+            SearchNode closedNode = (SearchNode)iterate.next();
+
+            if(node.sameState(closedNode)) {
+                result = true;
+                previousNode = closedNode;
+            }
+        }
+
+        return result;
+    }
+
+
+    /* ~~~~~~~~~~~~~ RETURNED SOLUTIONS ~~~~~~~~~~~~~ */
 
     private String solutionPath() {
         return null;

@@ -19,17 +19,17 @@
       <file leaf-file-name="Search.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Search.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="127">
-              <caret line="70" column="37" lean-forward="true" selection-start-line="70" selection-start-column="37" selection-end-line="70" selection-end-column="37" />
+            <state relative-caret-position="654">
+              <caret line="206" column="9" lean-forward="true" selection-start-line="206" selection-start-column="9" selection-end-line="206" selection-end-column="9" />
               <folding>
                 <element signature="e#1020#1021#0" expanded="true" />
                 <element signature="e#1047#1048#0" expanded="true" />
                 <element signature="e#1088#1089#0" expanded="true" />
                 <element signature="e#1115#1116#0" expanded="true" />
-                <element signature="e#3720#3721#0" expanded="true" />
-                <element signature="e#3747#3748#0" expanded="true" />
-                <element signature="e#3789#3790#0" expanded="true" />
-                <element signature="e#3813#3814#0" expanded="true" />
+                <element signature="e#6635#6636#0" expanded="true" />
+                <element signature="e#6662#6663#0" expanded="true" />
+                <element signature="e#6704#6705#0" expanded="true" />
+                <element signature="e#6728#6729#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -73,8 +73,8 @@
         <option value="$PROJECT_DIR$/search_engine/Search.java" />
         <option value="$PROJECT_DIR$/search_engine/SearchState.java" />
         <option value="$PROJECT_DIR$/search_engine/SearchNode.java" />
-        <option value="$PROJECT_DIR$/Search.java" />
         <option value="$PROJECT_DIR$/SearchNode.java" />
+        <option value="$PROJECT_DIR$/Search.java" />
       </list>
     </option>
   </component>
@@ -403,17 +403,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Search.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="127">
-          <caret line="70" column="37" lean-forward="true" selection-start-line="70" selection-start-column="37" selection-end-line="70" selection-end-column="37" />
+        <state relative-caret-position="654">
+          <caret line="206" column="9" lean-forward="true" selection-start-line="206" selection-start-column="9" selection-end-line="206" selection-end-column="9" />
           <folding>
             <element signature="e#1020#1021#0" expanded="true" />
             <element signature="e#1047#1048#0" expanded="true" />
             <element signature="e#1088#1089#0" expanded="true" />
             <element signature="e#1115#1116#0" expanded="true" />
-            <element signature="e#3720#3721#0" expanded="true" />
-            <element signature="e#3747#3748#0" expanded="true" />
-            <element signature="e#3789#3790#0" expanded="true" />
-            <element signature="e#3813#3814#0" expanded="true" />
+            <element signature="e#6635#6636#0" expanded="true" />
+            <element signature="e#6662#6663#0" expanded="true" />
+            <element signature="e#6704#6705#0" expanded="true" />
+            <element signature="e#6728#6729#0" expanded="true" />
           </folding>
         </state>
       </provider>
