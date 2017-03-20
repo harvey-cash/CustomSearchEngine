@@ -29,14 +29,6 @@ public abstract class Search {
         }
     }
 
-    private SearchNode aStar() {
-        return null;
-    }
-
-    private SearchNode breadthFirst() {
-        return null;
-    }
-
     private SearchNode selectNode(String strategy) {
         switch (getStrategy(strategy)) {
             case A_STAR:
@@ -47,6 +39,33 @@ public abstract class Search {
             default:
                 return aStar();
         }
+    }
+
+    /* ~~~~~~~~~~~~~ Provide strat method here, return SearchNode ~~~~~~~~~~~~~ */
+
+    /* Choose the node on openNodes with the minimum cost remaining to the target!
+     */
+    private SearchNode aStar() {
+        Iterator i = openNodes.iterator();
+        SearchNode minCostNode = (SearchNode)i.next();
+
+        //I'm not sure wtf these semi-colons are for
+        for(;i.hasNext();) {
+            SearchNode nextNode = (SearchNode)i.next();
+            if(nextNode.getEstTotalCost() < minCostNode.getEstTotalCost()) { minCostNode = nextNode; }
+        }
+
+        openNodes.remove(minCostNode);
+        return minCostNode;
+    }
+
+    /* Choose the node on the top of openNodes
+     */
+    private SearchNode breadthFirst() {
+        SearchNode nextNode = (SearchNode)openNodes.get(0);
+        openNodes.remove(0);
+
+        return nextNode;
     }
 
 
