@@ -23,6 +23,4 @@ public abstract class SearchState {
     abstract boolean sameState(SearchState compareState);
     abstract ArrayList<SearchState> getSuccessors(Search searcher);
 
-
-
 }

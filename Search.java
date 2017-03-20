@@ -229,14 +229,39 @@ public abstract class Search {
     }
 
 
-    /* ~~~~~~~~~~~~~ RETURNED SOLUTIONS ~~~~~~~~~~~~~ */
+    /* ~~~~~~~~~~~~~~~~ RETURNED SOLUTIONS ~~~~~~~~~~~~~~~~ */
+    /* ~~~ Efficiency is useful iterations / wasted iterations ~~~ */
 
     private String solutionPath() {
-        return null;
+        SearchNode node = currentNode;
+        StringBuffer stringBuffer = new StringBuffer(node.toString());
+
+        int iterate = 1;
+        while (node.getParent() != null) {
+            node = node.getParent();
+            stringBuffer.insert(0, "\n");
+            stringBuffer.insert(0, node.toString());
+
+            iterate++;
+        }
+
+        System.out.println("\n ~~~~~~~~ SEARCH SUCCEEDS ~~~~~~~~ \n");
+        System.out.println("Efficiency: " + (float)iterate/(closedNodes.size() + 1));
+        System.out.println("Solution Path: \n");
+
+        return stringBuffer.toString();
     }
 
     private float solutionEfficiency() {
-        return 0;
+        SearchNode node = currentNode;
+
+        int iterate = 1;
+        while (node.getParent() != null) {
+            node = node.getParent();
+            iterate++;
+        }
+
+        return (float)iterate/(closedNodes.size() + 1);
     }
 
 
