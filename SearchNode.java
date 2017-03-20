@@ -44,10 +44,12 @@ public class SearchNode {
 
     /* ~~~~~~~~~~~~~ METHODS THAT MUST BE IMPLEMENTED IN SEARCH_STATE ~~~~~~~~~~~~~ */
 
+    //Have you reached the target?
     public boolean reachedGoal(Search searcher) { return state.reachedGoal(searcher); }
+    //Is your state the same as this given one?
     public boolean sameState(SearchNode compareNode) { return state.sameState(compareNode.getState()); }
 
-    //Get all the successors to my current state, and return a list of new nodes for each one.
+    //Get all the successors to your current state, and return a list of new nodes for each one.
     public ArrayList getSuccessors(Search searcher) {
         ArrayList<SearchState> stateList = state.getSuccessors(searcher);
         ArrayList<SearchNode> nodeList = new ArrayList<SearchNode>();
@@ -61,6 +63,7 @@ public class SearchNode {
         return nodeList;
     }
 
+    //Describe the current node in string format
     public String toString() {
         String nodeString = "";
 

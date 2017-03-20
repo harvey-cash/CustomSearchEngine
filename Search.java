@@ -167,19 +167,13 @@ public abstract class Search {
         for (SearchNode node : successorNodes) {
             if(onOpenList(node)) {
                 if (node.getGlobalCost() <= previousNode.getGlobalCost()) {
-                    previousNode.setParent(node.getParent());
-                    previousNode.setGlobalCost(node.getGlobalCost());
-                    previousNode.setLocalCost(node.getLocalCost());
-                    previousNode.setEstTotalCost(node.getEstTotalCost());
+                    updateNodeState(previousNode, node);
                 }
             }
             else {
                 if(onClosedList(node)) {
                     if (node.getGlobalCost() <= previousNode.getGlobalCost()) {
-                        previousNode.setParent(node.getParent());
-                        previousNode.setGlobalCost(node.getGlobalCost());
-                        previousNode.setLocalCost(node.getLocalCost());
-                        previousNode.setEstTotalCost(node.getEstTotalCost());
+                        updateNodeState(previousNode, node);
 
                         openNodes.add(previousNode);
                         closedNodes.remove(previousNode);
@@ -192,6 +186,13 @@ public abstract class Search {
         }
 
         return vettedList;
+    }
+
+    private void updateNodeState(SearchNode nodeToUpdate, SearchNode node) {
+        nodeToUpdate.setParent(node.getParent());
+        nodeToUpdate.setGlobalCost(node.getGlobalCost());
+        nodeToUpdate.setLocalCost(node.getLocalCost());
+        nodeToUpdate.setEstTotalCost(node.getEstTotalCost());
     }
 
     //Given Node is present on the open list already
@@ -248,6 +249,8 @@ public abstract class Search {
         System.out.println("\n ~~~~~~~~ SEARCH SUCCEEDS ~~~~~~~~ \n");
         System.out.println("Efficiency: " + (float)iterate/(closedNodes.size() + 1));
         System.out.println("Solution Path: \n");
+
+        stringBuffer.insert(stringBuffer.length(), "\n ~~~~~~~~ SEARCH CONCLUDED ~~~~~~~~ \n");
 
         return stringBuffer.toString();
     }
