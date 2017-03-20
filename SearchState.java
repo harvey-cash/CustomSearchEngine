@@ -7,6 +7,7 @@ import java.util.*;
 public abstract class SearchState {
 
     /* ~~~~~~~~~~~~~ INSTANCE VARIABLES ~~~~~~~~~~~~~ */
+    /* ~~~~~~ (Include accessors of these!) ~~~~~~ */
 
     protected int localCost;
     public int getLocalCost() { return localCost; }
@@ -18,9 +19,12 @@ public abstract class SearchState {
 
 
     /* ~~~~~~~~~~~~~ METHODS THAT MUST BE IMPLEMENTED ~~~~~~~~~~~~~ */
+    /* ~~~~~~~~~~ Remember to also include a .toString() ! ~~~~~~~~~~ */
 
-    abstract boolean reachedGoal(Search searcher);
-    abstract boolean sameState(SearchState compareState);
+    abstract boolean reachedGoal(Search searcher); //Have you reached the goal?
+    abstract boolean sameState(SearchState compareState); //Is your state the same as this given one?
+
+    //Return an ArrayList of all the possible successor states
     abstract ArrayList<SearchState> getSuccessors(Search searcher);
 
 }
