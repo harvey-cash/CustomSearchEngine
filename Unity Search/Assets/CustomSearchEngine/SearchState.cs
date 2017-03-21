@@ -20,11 +20,13 @@ public abstract class SearchState {
 
 
     /* ~~~~~~~~~~~~~ METHODS THAT MUST BE IMPLEMENTED ~~~~~~~~~~~~~ */
-    /* ~~~~~~~~~~ Remember to also include a .ToString() ! ~~~~~~~~~~ */
+    /* ~~~~~~~~~~~~ Remember to include a .ToString() ! ~~~~~~~~~~~~ */
 
     public abstract bool ReachedGoal(Search searcher); //Have you reached the goal?
     public abstract bool SameState(SearchState compareState); //Is your state the same as this given one?
 
     //Return an ArrayList of all the possible successor states
     public abstract List<SearchState> GetSuccessors(Search searcher);
+
+    public abstract override string ToString();
 }

@@ -1,4 +1,5 @@
 ﻿
+using System.Collections;
 using System.Collections.Generic;
 
 /* SearchNode is the internal representation of any SearchState.
@@ -55,8 +56,8 @@ public class SearchNode {
         List<SearchState> stateList = state.GetSuccessors(searcher);
         List<SearchNode> nodeList = new List<SearchNode>();
 
-        for (int i = 0; i < stateList.Count; i++) {
-            SearchNode node = new SearchNode(stateList[i], stateList[i].GetLocalCost(), stateList[i].GetEstRemainingCost());
+        foreach (SearchState successor in stateList) {
+            SearchNode node = new SearchNode(successor, successor.GetLocalCost(), successor.GetEstRemainingCost());
             node.SetParent(this);
             nodeList.Add(node);
         }
@@ -77,4 +78,5 @@ public class SearchNode {
 
         return nodeString;
     }
+
 }

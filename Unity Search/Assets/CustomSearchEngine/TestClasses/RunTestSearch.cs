@@ -30,7 +30,7 @@ public class RunTestSearch : MonoBehaviour {
 
         //print the entire solution path
         //Debug.Log(searcher.RunSearch(initialState, "breadthFirst"));
-        Debug.Log(searcher.RunSearch(initialState, "aStar"));
+        Debug.Log(searcher.searchEfficiency(initialState, "aStar"));
 
         //print just the efficiency
         //Debug.Log("BreadthFirst: " + searcher.SearchEfficiency(initialState, "breadthFirst"));

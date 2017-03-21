@@ -100,14 +100,13 @@ public abstract class Search {
 
         int iterations = 1;
 
-        while (openNodes.Count > 0) {
-            Debug.Log(Environment.NewLine + " Iteration #" + iterations);
+        while (openNodes.Any()) {
+            Debug.Log("\n Iteration #" + iterations);
 
             currentNode = SelectNode(strategy);
-            Debug.Log(Environment.NewLine + " + Current node: " + currentNode.ToString());
+            Debug.Log("\n + Current node: " + currentNode.ToString());
 
-            if (currentNode.ReachedGoal(this)) { return SolutionPath(); } 
-            else {
+            if (currentNode.ReachedGoal(this)) { return SolutionPath(); } else {
                 Expand();
                 closedNodes.Add(currentNode);
                 iterations++;
@@ -119,26 +118,24 @@ public abstract class Search {
 
     /* Return only the efficiency of a given solution search.
      */
-    public float SearchEfficiency(SearchState initialState, string strategy) {
+    public float searchEfficiency(SearchState initialState, String strategy) {
 
         SearchNode initialNode = new SearchNode(initialState, 0, 0);
         initialNode.SetGlobalCost(0);
 
         openNodes = new List<SearchNode>();
-        openNodes.Add(initialNode);        
+        openNodes.Add(initialNode);
         closedNodes = new List<SearchNode>();
 
         int iterations = 1;
-        
-        while (openNodes.Count > 0) {
+
+        while (openNodes.Any() && iterations < 4) {
             currentNode = SelectNode(strategy);
-            
-            if (currentNode.ReachedGoal(this)) { return SolutionEfficiency(); } 
-            else {
+            if (currentNode.ReachedGoal(this)) { return SolutionEfficiency(); } else {
                 Expand();
                 closedNodes.Add(currentNode);
                 iterations++;
-            }                      
+            }
         }
 
         return 0;
@@ -150,25 +147,25 @@ public abstract class Search {
     private void Expand() {
         successorNodes = currentNode.GetSuccessors(this);
 
-        for (int i = 0; i < successorNodes.Count; i++) {
-            successorNodes[i].SetGlobalCost(currentNode.GetGlobalCost() + successorNodes[i].GetLocalCost());
-            successorNodes[i].SetParent(currentNode);
-            successorNodes[i].SetEstTotalCost(successorNodes[i].GetGlobalCost() + successorNodes[i].GetEstRemainingCost());
+        foreach (SearchNode node in successorNodes) {
+            node.SetGlobalCost(currentNode.GetGlobalCost() + node.GetLocalCost());
+            node.SetParent(currentNode);
+            node.SetEstTotalCost(node.GetGlobalCost() + node.GetEstRemainingCost());
         }
-        
+
         successorNodes = VetSuccessors(successorNodes);
 
-        for (int i = 0; i < successorNodes.Count; i++) {
-            openNodes.Add(successorNodes[i]);
+        foreach (SearchNode node in successorNodes) {
+            openNodes.Add(node);
         }
     }
 
-    // modify things, when a better route that has already lead to
+    // modify things when a better route that has already lead to
     // this node is discovered..?
     private List<SearchNode> VetSuccessors(List<SearchNode> successors) {
         List<SearchNode> vettedList = new List<SearchNode>();
 
-        foreach (SearchNode node in successors) {
+        foreach (SearchNode node in successorNodes) {
             if (InOpenList(node)) {
                 if (node.GetGlobalCost() <= previousNode.GetGlobalCost()) {
                     UpdateNodeState(previousNode, node);
@@ -197,29 +194,37 @@ public abstract class Search {
         nodeToUpdate.SetEstTotalCost(node.GetEstTotalCost());
     }
 
-    //Given Node is present in the open list already
+    //Given Node is present on the open list already
     private bool InOpenList(SearchNode node) {
         bool result = false;
 
-        for (int i = 0; i < openNodes.Count; i++) {
-            if (node.SameState(openNodes[i])) {
+        int iterate = 1;
+        while (iterate < openNodes.Count && !result) {
+            SearchNode openNode = openNodes[iterate];
+
+            if (node.SameState(openNode)) {
                 result = true;
-                previousNode = openNodes[i];
+                previousNode = openNode;
             }
         }
+
         return result;
     }
 
-    //Given Node is present in the closed list already
+    //Given Node is present on the closed list already
     private bool InClosedList(SearchNode node) {
         bool result = false;
 
-        for (int i = 0; i < closedNodes.Count; i++) {
-            if (node.SameState(closedNodes[i])) {
+        int iterate = 1;
+        while (iterate < closedNodes.Count && !result) {
+            SearchNode closedNode = closedNodes[iterate];
+
+            if (node.SameState(closedNode)) {
                 result = true;
-                previousNode = closedNodes[i];
+                previousNode = closedNode;
             }
         }
+
         return result;
     }
 
@@ -229,24 +234,24 @@ public abstract class Search {
 
     private string SolutionPath() {
         SearchNode node = currentNode;
-        StringBuilder stringBuilder = new StringBuilder(node.ToString());
+        StringBuilder stringBuffer = new StringBuilder(node.ToString());
 
         int iterate = 1;
         while (node.GetParent() != null) {
             node = node.GetParent();
-            stringBuilder.Insert(0, Environment.NewLine);
-            stringBuilder.Insert(0, node.ToString());
+            stringBuffer.Insert(0, "\n");
+            stringBuffer.Insert(0, node.ToString());
 
             iterate++;
         }
 
-        Debug.Log(Environment.NewLine + " ~~~~~~~~ SEARCH SUCCEEDS ~~~~~~~~ " + Environment.NewLine);
+        Debug.Log("\n ~~~~~~~~ SEARCH SUCCEEDS ~~~~~~~~ \n");
         Debug.Log("Efficiency: " + (float)iterate / (closedNodes.Count + 1));
-        Debug.Log("Solution Path: " + Environment.NewLine);
+        Debug.Log("Solution Path: \n");
 
-        stringBuilder.Insert(stringBuilder.Length, Environment.NewLine + " ~~~~~~~~ SEARCH CONCLUDED ~~~~~~~~ " + Environment.NewLine);
+        stringBuffer.Insert(stringBuffer.Length, "\n ~~~~~~~~ SEARCH CONCLUDED ~~~~~~~~ \n");
 
-        return stringBuilder.ToString();
+        return stringBuffer.ToString();
     }
 
     private float SolutionEfficiency() {
