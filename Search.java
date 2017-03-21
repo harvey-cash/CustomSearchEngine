@@ -5,7 +5,7 @@ import java.util.*;
  * and any other widely-referenced variables / constants useful to the matter at hand.
  *
  * Call runSearch to find the optimal solution path and efficiency,
- * or searchEfficiency to find just the efficiency of your solution.
+ * or runSearchE to find just the efficiency of your solution.
  */
 
 public abstract class Search {
@@ -116,7 +116,7 @@ public abstract class Search {
 
     /* Return only the efficiency of a given solution search.
      */
-    public float searchEfficiency (SearchState initialState, String strategy) {
+    public float runSearchE(SearchState initialState, String strategy) {
 
         SearchNode initialNode = new SearchNode(initialState, 0, 0);
         initialNode.setGlobalCost(0);

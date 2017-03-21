@@ -3,14 +3,14 @@ public class PathSearch extends Search {
 
     /* ~~~~~ CONSTRUCTOR ~~~~~ */
 
-    public PathSearch (int[][] myMaze, int myTargetX, int myTargetY) {
+    public PathSearch (char[][] myMaze, int myTargetX, int myTargetY) {
         maze = myMaze;
         targetX = myTargetX;
         targetY = myTargetY;
     }
 
-    private int[][] maze;
-    public int[][] getMaze() { return maze; }
+    private char[][] maze;
+    public char[][] getMaze() { return maze; }
     private int targetX;
     public int getTargetX() { return targetX; }
     private int targetY;
