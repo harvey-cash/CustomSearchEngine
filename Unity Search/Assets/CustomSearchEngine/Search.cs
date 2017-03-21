@@ -9,6 +9,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using UnityEngine;
 
@@ -75,7 +76,7 @@ public abstract class Search {
 
     protected SearchNode initialNode;
     protected SearchNode currentNode;
-    protected SearchNode previousNode; //node found on 'open' with same state as new one?
+    protected SearchNode previousNode;
 
     protected List<SearchNode> openNodes;
     protected List<SearchNode> closedNodes;
@@ -98,14 +99,15 @@ public abstract class Search {
         closedNodes = new List<SearchNode>();
 
         int iterations = 1;
-        
+
         while (openNodes.Count > 0) {
             Debug.Log(Environment.NewLine + " Iteration #" + iterations);
 
             currentNode = SelectNode(strategy);
             Debug.Log(Environment.NewLine + " + Current node: " + currentNode.ToString());
 
-            if (currentNode.ReachedGoal(this)) { return SolutionPath(); } else {
+            if (currentNode.ReachedGoal(this)) { return SolutionPath(); } 
+            else {
                 Expand();
                 closedNodes.Add(currentNode);
                 iterations++;
@@ -123,18 +125,20 @@ public abstract class Search {
         initialNode.SetGlobalCost(0);
 
         openNodes = new List<SearchNode>();
-        openNodes.Add(initialNode);
+        openNodes.Add(initialNode);        
         closedNodes = new List<SearchNode>();
 
         int iterations = 1;
-
+        
         while (openNodes.Count > 0) {
             currentNode = SelectNode(strategy);
-            if (currentNode.ReachedGoal(this)) { return SolutionEfficiency(); } else {
+            
+            if (currentNode.ReachedGoal(this)) { return SolutionEfficiency(); } 
+            else {
                 Expand();
                 closedNodes.Add(currentNode);
                 iterations++;
-            }
+            }                      
         }
 
         return 0;
@@ -151,7 +155,7 @@ public abstract class Search {
             successorNodes[i].SetParent(currentNode);
             successorNodes[i].SetEstTotalCost(successorNodes[i].GetGlobalCost() + successorNodes[i].GetEstRemainingCost());
         }
-
+        
         successorNodes = VetSuccessors(successorNodes);
 
         for (int i = 0; i < successorNodes.Count; i++) {
@@ -159,26 +163,26 @@ public abstract class Search {
         }
     }
 
-    // modify things when a better route that has already lead to
+    // modify things, when a better route that has already lead to
     // this node is discovered..?
     private List<SearchNode> VetSuccessors(List<SearchNode> successors) {
         List<SearchNode> vettedList = new List<SearchNode>();
 
-        for (int i = 0; i < successorNodes.Count; i++) {
-            if (InOpenList(successorNodes[i])) {
-                if (successorNodes[i].GetGlobalCost() <= previousNode.GetGlobalCost()) {
-                    UpdateNodeState(previousNode, successorNodes[i]);
+        foreach (SearchNode node in successors) {
+            if (InOpenList(node)) {
+                if (node.GetGlobalCost() <= previousNode.GetGlobalCost()) {
+                    UpdateNodeState(previousNode, node);
                 }
             } else {
-                if (InClosedList(successorNodes[i])) {
-                    if (successorNodes[i].GetGlobalCost() <= previousNode.GetGlobalCost()) {
-                        UpdateNodeState(previousNode, successorNodes[i]);
+                if (InClosedList(node)) {
+                    if (node.GetGlobalCost() <= previousNode.GetGlobalCost()) {
+                        UpdateNodeState(previousNode, node);
 
                         openNodes.Add(previousNode);
                         closedNodes.Remove(previousNode);
                     }
                 } else {
-                    vettedList.Add(successorNodes[i]);
+                    vettedList.Add(node);
                 }
             }
         }

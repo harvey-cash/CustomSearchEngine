@@ -9,6 +9,12 @@ using UnityEngine;
 public class RunTestSearch : MonoBehaviour {
 
     void Start() {
+
+        //Test();
+        Run();
+    }
+
+    void Test() {
         TestSearch searcher = new TestSearch(10, 10);
         TestState initialState = new TestState(0, 0);
 
@@ -16,8 +22,6 @@ public class RunTestSearch : MonoBehaviour {
         for (int i = 0; i < successors.Count; i++) {
             Debug.Log(successors[0].ToString());
         }
-
-        //Run();
     }
 
 	void Run () {
@@ -25,11 +29,11 @@ public class RunTestSearch : MonoBehaviour {
         TestState initialState = new TestState(0, 0);
 
         //print the entire solution path
-        Debug.Log(searcher.RunSearch(initialState, "breadthFirst"));
+        //Debug.Log(searcher.RunSearch(initialState, "breadthFirst"));
         Debug.Log(searcher.RunSearch(initialState, "aStar"));
 
         //print just the efficiency
-        Debug.Log("BreadthFirst: " + searcher.SearchEfficiency(initialState, "breadthFirst"));
-        Debug.Log("A*: " + searcher.SearchEfficiency(initialState, "aStar"));
+        //Debug.Log("BreadthFirst: " + searcher.SearchEfficiency(initialState, "breadthFirst"));
+        //Debug.Log("A*: " + searcher.SearchEfficiency(initialState, "aStar"));
     }
 }
