@@ -98,7 +98,7 @@ public abstract class Search {
         closedNodes = new List<SearchNode>();
 
         int iterations = 1;
-
+        
         while (openNodes.Count > 0) {
             Debug.Log(Environment.NewLine + " Iteration #" + iterations);
 

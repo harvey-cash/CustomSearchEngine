@@ -267,5 +267,4 @@ public abstract class Search {
         return (float)iterate/(closedNodes.size() + 1);
     }
 
-
 }

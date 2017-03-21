@@ -78,6 +78,9 @@
     <Compile Include="Assets\CustomSearchEngine\Search.cs" />
     <Compile Include="Assets\CustomSearchEngine\SearchNode.cs" />
     <Compile Include="Assets\CustomSearchEngine\SearchState.cs" />
+    <Compile Include="Assets\CustomSearchEngine\TestClasses\RunTestSearch.cs" />
+    <Compile Include="Assets\CustomSearchEngine\TestClasses\TestSearch.cs" />
+    <Compile Include="Assets\CustomSearchEngine\TestClasses\TestState.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
