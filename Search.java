@@ -1,7 +1,7 @@
 import java.util.*;
 
 /* Abstract Search is the controller of the whole search engine.
- * The user implementation of this need only contain the abstract getTarget()
+ * The user implementation of this need only contain some sort of getTarget()
  * and any other widely-referenced variables / constants useful to the matter at hand.
  *
  * Call runSearch to find the optimal solution path and efficiency,
